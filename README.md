@@ -68,4 +68,40 @@ none
 ```
 - delete 는 존재하지 않음
 
+# Field Mapping
+- 각 필드는 여러가지 타입과 매핑될 수 있음 (enum 등)
+- 비즈니스 상 제약조건에 따라 설정 가능
+```java
+@Column // 컬럼
+@Temporal // 날짜 타입
+@Enumerated // enum
+@Lob // blob clob 맵핑
+@Transient // db와 맵핑하지 않음
+```
+- 속성 값 
+```
+name: 컬럼명
+insertable, updateable: default true 
+nullbable: false 시 not null 설정 
+unique: field보다는 @table 의 UniqueConstraints로 사용하는 경우가 많음 
+length: String 타입에 사용하는 문자열 길이 제약 
+columnDefinition: DB컬럼 정보르 직접 줄 수 있음 (columnDefinition ="varchar(10) defulat `EMPTY`")
+precision, cale: BigDecimal, BigInteger 타입에서 사용. 
+  - precision: 소수점을 포함한 전체 자릿수, double, float타입에는 적용되지 않음.
+  - sale: 소수의 자릿수
+```
 
+## EnumType
+EnumType 을 정해서 사용해야 함
+- ORDINAL(default): enum 순서를 DB에 저장 (integer 타입)
+- STRING: enum 이름을 DB에 저장 (string 타입)
+
+## Temporal
+- 날짜 타입을 매핑할 때 사용
+- 자바 8 이상에서는 필요 없음
+    - LocalDate
+    - LocalDateTime
+    
+## Lob
+- 지정 가능한 속성이 없음
+- 필드 타입이 문자면 CLOB, 나머지(바이트 등) 이면 BLOB
