@@ -16,10 +16,19 @@ public class jpaMain {
 
         try {
             Member member = new Member();
-            member.setId(6L);
+            member.setId(99L);
             member.setName("gang");
 
             em.persist(member); // register in permanence context
+            /*
+                em.setFlushMode(FlushModeType.COMMIT)
+                * FlushModeOption
+                    - AUTO: [flush, commit]
+                    - COMMIT: commit
+
+                flush does not clear context
+             */
+            em.flush(); // force executing query
             // em.detach(member); // remove from permanence context
             tx.commit(); // execute insert query
 
