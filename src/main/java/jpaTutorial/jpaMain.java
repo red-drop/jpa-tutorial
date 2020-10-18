@@ -16,14 +16,25 @@ public class jpaMain {
 
         try {
             Member member = new Member();
-            member.setId(5L);
+            member.setId(6L);
             member.setName("gang");
-            em.persist(member);
+
+            em.persist(member); // register in permanence context
+            // em.detach(member); // remove from permanence context
+            tx.commit(); // execute insert query
+
+            // update ( Dirty check )
+            Member m = em.find(Member.class, 6L);
+            m.setName("JpaMember");
+            m.setId(10L);
             tx.commit();
 
-            Member m = em.find(Member.class, 1L);
-            System.out.println("MemberId: " + m.getId());
-            System.out.println("MemberName: " + m.getName());
+            if ( m == null) {
+                System.out.println("null");
+            }else {
+                System.out.println("MemberId: " + m.getId());
+                System.out.println("MemberName: " + m.getName());
+            }
         } catch (Exception e) {
             tx.rollback();
         } finally {
