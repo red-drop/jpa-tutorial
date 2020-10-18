@@ -16,7 +16,7 @@ public class jpaMain {
 
         try {
             Member member = new Member();
-            member.setId(99L);
+            member.setId(111L);
             member.setName("gang");
 
             em.persist(member); // register in persistence context
