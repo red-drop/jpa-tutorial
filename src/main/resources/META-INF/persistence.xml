@@ -27,7 +27,9 @@
             <!-- BatchSize -->
             <property name="hibernate.jdbc.batch_size" value="10"/>
 
-            <!--<property name="hibernate.hbm2ddl.auto" value="create" />-->
+            <!-- update, validate, create, create-drop etc -->
+            <!-- remove column not exist -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
     </persistence-unit>
 </persistence>
