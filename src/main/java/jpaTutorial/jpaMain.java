@@ -19,17 +19,17 @@ public class jpaMain {
             member.setId(99L);
             member.setName("gang");
 
-            em.persist(member); // register in permanence context
+            em.persist(member); // register in persistence context
             /*
                 em.setFlushMode(FlushModeType.COMMIT)
                 * FlushModeOption
                     - AUTO: [flush, commit]
                     - COMMIT: commit
 
-                flush does not clear context
+                flush does not clear persistence context
              */
             em.flush(); // force executing query
-            // em.detach(member); // remove from permanence context
+            // em.detach(member); // remove from persistence context
             tx.commit(); // execute insert query
 
             // update ( Dirty check )
