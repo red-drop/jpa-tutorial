@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class Member {
     @Id // PK mapping
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     /*
@@ -19,25 +20,8 @@ public class Member {
         Auto-ddl 을 update로 설정 한 후에 제약조건을 설정하면 반영되지 않음
         @Column(name="Username" unique = true, length = 10)
      */
-    @Column(columnDefinition = "varchar(100)", nullable = false)
+//    @Column(columnDefinition = "varchar(100)", nullable = false)
     private String name;
-
-    /*
-        persistence.xml 에서 auto-ddl 을 update 로 설정 시 create 때 새 컬럼도 추가됨
-     */
-    @Column(nullable = false)
-    private Integer age;
-
-    @Enumerated(EnumType.STRING)
-    private RoleType role;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
-    @Lob
-    private String description;
 
     public Long getId() {
         return id;
@@ -54,4 +38,37 @@ public class Member {
     public void setName(String name) {
         this.name = name;
     }
+    //
+//    /*
+//        persistence.xml 에서 auto-ddl 을 update 로 설정 시 create 때 새 컬럼도 추가됨
+//     */
+//    @Column(nullable = false)
+//    private Integer age;
+//
+//    @Enumerated(EnumType.STRING)
+//    private RoleType role;
+//
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date createdAt;
+//
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date updatedAt;
+//    @Lob
+//    private String description;
+//
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 }

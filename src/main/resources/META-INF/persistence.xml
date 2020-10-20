@@ -29,7 +29,7 @@
 
             <!-- update, validate, create, create-drop etc -->
             <!-- remove column not exist -->
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
 </persistence>

@@ -105,3 +105,41 @@ EnumType 을 정해서 사용해야 함
 ## Lob
 - 지정 가능한 속성이 없음
 - 필드 타입이 문자면 CLOB, 나머지(바이트 등) 이면 BLOB
+
+## Primary Key Mapping 
+- 직접 할당: @id만 사용
+- 자동 생성 (@GeneratedValue)
+  - Identity: DB에 위임
+    - 기본 키 생성을 DB에 위임 
+    - JPA는 commit 시점에 insert query 를 실행 
+    - JPA의 영속 컨텍스트에서는 id를 이용해서 레코드를 관리하나, Identity의 경우에는 쿼리를 날린 후에 ID가 생성된다.
+    - persist 에서 Insert Query를 날리고 JPA에서 ID를 긁어온다.
+    - Buffer Write를 사용할 수 없다.
+  - SEQUENCE: DB 시퀀스 오브젝트 사용 (@SequenceGenerator)
+    - 먼저 Sequence 에서 다음 값을 가져온 후 persist 에서 영속성 컨텍스트에 넣는다.
+    - allocationSize의 기본값은 50인데, 50개를 미리 메모리에 세팅 해두고 꺼내쓰게 된다.
+
+### @GeneratedValue
+```java
+/*
+    AUTO - DB에 따라 자동 선택
+    IDENTITY - MYSQL (Auto increment)
+    SEQUENCE - ORACLE (Default HibernateSequence, 이름 지정 필요)
+    TABLE - 키 생성 전용 테이블을 만들어서 시퀀스를 흉내내는 전략, 성능이슈 
+*/
+
+@Entity
+@SequanceGenerator(
+    name="TableName_SEQ_GENERATOR",
+    sequenceName = "TableName_SEQ",
+    initialValue = 1, allocationSize =1)
+); 
+public class Model {
+@Id
+/*
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TableName_SEQ_GENERATOR");
+    @GeneratedValue(strategy = GenerationType.AUTO);
+*/
+private Long id;
+}
+```
