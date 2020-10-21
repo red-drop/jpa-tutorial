@@ -3,11 +3,17 @@ package jpaTutorial.domain;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "item")
+    private List<OrderItem> orderItems = new ArrayList<>();
+
     private String name;
     private int price;
     @Column(name = "stock_quantity")

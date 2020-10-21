@@ -1,18 +1,24 @@
 package jpaTutorial.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import jpaTutorial.Member;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "user")
+    private List<Member> members = new ArrayList<>();
+
     private String name;
     private String city;
     private String street;
     private String zipcode;
+
 
     public User(){
 
