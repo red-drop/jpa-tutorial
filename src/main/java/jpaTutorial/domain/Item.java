@@ -2,10 +2,7 @@ package jpaTutorial.domain;
 
 import org.hibernate.annotations.GeneratorType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Item {
@@ -13,6 +10,7 @@ public class Item {
     private Long id;
     private String name;
     private int price;
+    @Column(name = "stock_quantity")
     private int stockQuantity;
 
     public Long getId() {

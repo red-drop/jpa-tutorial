@@ -7,13 +7,17 @@ public class OrderItem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @ManyToOne
+    @JoinColumn(name="order_id")
+    private Order order;
 
-    @Column(name = "item_id")
-    private Long ItemId;
+    @ManyToOne
+    @JoinColumn(name="item_id")
+    private Item item;
 
+    @Column(name = "order_price")
     private int orderPrice;
+
     private int count;
 
     public Long getId() {
@@ -24,20 +28,20 @@ public class OrderItem {
         this.id = id;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
-    public Long getItemId() {
-        return ItemId;
+    public Item getItem() {
+        return item;
     }
 
-    public void setItemId(Long itemId) {
-        ItemId = itemId;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getOrderPrice() {
