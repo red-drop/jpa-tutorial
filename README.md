@@ -143,3 +143,23 @@ public class Model {
 private Long id;
 }
 ```
+
+## Association Mapping
+```java
+/*
+  +--------+ N    1 +------+
+  | member | -----> | team |
+  +--------+        +------+
+*/
+
+class Member {
+    @ManyToOne(fetch = FetchType.LAZY || FetchType.EAGER) // EAGER is default
+    @JoinColumn(name="team_id")
+    private Team team;
+}
+
+class Team {
+    @OneToMany(mappedBy = "team")
+    private List<Member> members = new ArrayList<>();     
+}
+```
