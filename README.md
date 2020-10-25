@@ -145,21 +145,77 @@ private Long id;
 ```
 
 ## Association Mapping
+- 한쪽에서만 DML을 사용할 수 있도록 설정
+- 연관 관계의 주인에서만 DML 을 사용한다.
+- 연관 관계의 주인은 왜래키를 가진 쪽에 설정
+- 필요시 편리 메소드를 만들어서 사용한다.
+
+### Many To One 
 ```java
 /*
   +--------+ N    1 +------+
   | member | -----> | team |
   +--------+        +------+
 */
-
 class Member {
     @ManyToOne(fetch = FetchType.LAZY || FetchType.EAGER) // EAGER is default
     @JoinColumn(name="team_id")
     private Team team;
 }
 
-class Team {
+class Team {    
+    // team 이라는 값으로 맵핑 되었다. 
     @OneToMany(mappedBy = "team")
     private List<Member> members = new ArrayList<>();     
+}
+```
+
+### One to One
+- 왜래키를 가진 쪽이 연관관계의 주인
+```java
+/*
+  +--------+ 1    1 +--------+
+  | member | -----> | locker |
+  +--------+        +--------+
+*/
+class Member {
+    @OneToOne
+    @JoinColumn(name = "locker_id") 
+    private Locker locker;
+}
+
+class Locker {
+    private Long id;
+}
+```
+
+### Many To Many
+- 테이블 설계 상에는 중간 테이블이 있어야 함
+- 중간 테이블을 엔티티로 승격
+- join_table 옵션 지정
+```java
+/*
+  +--------+ N    N +---------+
+  | member | -----> | product |
+  +--------+        +---------+
+*/
+class Member {
+    @OneToMany(mappedBy = "member") 
+    private List<MemberProduct> memberProducts = new ArrayList<>();
+}
+
+class MemberProduct {
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+    
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+}
+
+class Product {    
+    @OneToMany(mappedBy = "product") 
+    private List<MemberProduct> memberProducts = new ArrayList<>();     
 }
 ```
